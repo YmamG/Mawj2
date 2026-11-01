@@ -6,5 +6,5 @@
   {% include "web/task-form.html" %}{% include "web/journal-form.html" %}<div id="page-notice" role="status" hidden></div>
   {% if page_error %}<div class="banner error" role="alert">{% tr page_error %}</div>{% else %}{% if section == 'tasks' or section == 'today' %}{% include 'web/tasks.html' %}{% elif section == 'journal' %}{% include 'web/journal.html' %}{% elif section == 'achievements' %}{% include 'web/report.html' %}{% elif section == 'calendar' %}{% include 'web/calendar.html' %}{% elif section == 'profile' %}{% include 'web/profile.html' %}{% endif %}{% endif %}
 </main>
-<footer class="app-footer"><span>{% tr 'Made by' %} <a href="https://github.com/ymamggg-jpg" target="_blank" rel="noopener noreferrer">Ymam</a> {% tr '· A little clarity, every day.' %}</span><div><a href="/privacy/">{% tr 'Privacy' %}</a> · <a href="/about/">{% tr 'About Mawj' %}</a></div></footer>
+<footer class="app-footer"><span>{% tr '· A little clarity, every day.' %}</span><div><a href="/privacy/">{% tr 'Privacy' %}</a> · <a href="/about/">{% tr 'About Mawj' %}</a></div></footer>
 </div>{% include 'web/dialogs.html' %}{{ initial_data|json_script:'page-data' }}{% endblock %}

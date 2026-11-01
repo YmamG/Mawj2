@@ -2,5 +2,5 @@
 {% block content %}<div class="app-container">
 {% include 'web/app-header.html' with current_section=section %}
 <main id="main" class="app-main">{% block workspace_content %}{% endblock %}</main>
-<footer class="app-footer"><span>{% tr 'Made by' %} <a href="https://github.com/ymamggg-jpg" target="_blank" rel="noopener noreferrer">Ymam</a></span><div><a href="/privacy/">{% tr 'Privacy' %}</a> · <a href="/about/">{% tr 'About Mawj' %}</a></div></footer>
+<footer class="app-footer"><div><a href="/privacy/">{% tr 'Privacy' %}</a> · <a href="/about/">{% tr 'About Mawj' %}</a></div></footer>
 </div>{% block workspace_scripts %}{% endblock %}{% endblock %}

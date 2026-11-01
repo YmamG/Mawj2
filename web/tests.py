@@ -114,3 +114,16 @@ class TemplateEditionTests(TestCase):
         self.assertContains(response, 'Privacy, in plain language.')
         self.assertContains(response, '<details class="privacy-details">')
         self.assertContains(response, 'Other users cannot see your journals, tasks, or goals.')
+
+    def test_public_and_workspace_pages_have_no_personal_attribution(self):
+        public = self.client.get('/')
+        self.assertNotContains(public, 'Made by')
+        self.assertNotContains(public, 'صُنع بواسطة')
+        self.assertNotContains(public, 'ymamggg-jpg')
+        self.client.force_login(self.owner)
+        for path in ('/app/today/', '/app/goals/'):
+            with self.subTest(path=path):
+                response = self.client.get(path)
+                self.assertNotContains(response, 'Made by')
+                self.assertNotContains(response, 'صُنع بواسطة')
+                self.assertNotContains(response, 'ymamggg-jpg')
