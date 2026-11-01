@@ -285,3 +285,9 @@ Limitations remain: no production deployment or live AI provider test; reminders
 - Moved language switching out of the theme popover into its own globe button in the application header. The theme button now controls colors only.
 - Converted the existing `midnight` theme identifier into the light **Sky** palette so saved user preferences remain valid without a data migration. The interface no longer offers an explicit dark palette; automatic browser dark mode is intentionally not claimed because the site does not currently implement `prefers-color-scheme` theme switching.
 - Chromium checks at 390px and 320px confirmed that the theme and language controls are separate, the globe icon renders, all seven navigation destinations fit, the Sky palette is light and there is no document overflow.
+
+## Render production deployment preparation (2026-11-02)
+
+- Added a Render Blueprint for a Gunicorn Django web service, managed PostgreSQL database and persistent private-media disk. Render's own hostname is validated and used for allowed-host/CSRF configuration; proxy scheme trust is enabled only when Render's explicit environment marker is present.
+- Production now reads `DATABASE_URL`, serves collected hashed static assets through WhiteNoise and stores private avatar/goal files under the configured persistent media root. Build and start scripts fail immediately on errors, apply migrations before starting and send access logs to the platform.
+- **169 Django tests passed**, including isolated Render host, PostgreSQL, proxy, static-storage and media-path configuration. Migration consistency, JavaScript syntax, translation JSON, Web Crypto and diff whitespace passed. The exact Render build collected 163 static files with 445 post-processed outputs; the exact start command applied all migrations, started Gunicorn and returned HTTP 200 with secure cookies and the hashed stylesheet through WhiteNoise.

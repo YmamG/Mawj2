@@ -54,6 +54,10 @@ See [architecture details](docs/django-edition.md) and the [ERD](docs/design.md)
 
 Clone this repository using its GitHub **Code** URL, or extract its ZIP. Open the actual project folder containing both `manage.py` and `requirements.txt` before running commands.
 
+## Internet deployment
+
+For a GitHub-connected deployment with persistent PostgreSQL records and private uploaded images on a persistent disk, follow the [Render deployment guide](docs/render.md). The included `render.yaml` creates the required web service, database and media disk. Review the platform's displayed plan and price before applying the Blueprint.
+
 ## Windows setup
 
 ```powershell
@@ -130,7 +134,7 @@ This prompts privately for a password and creates the fictional `mawj_demo` acco
 - Recurrence advances when a task is completed; reminders appear on site visits, without email or push delivery.
 - Editing a journal saves revised text as written and dismisses old pending suggestions. Reanalysis is explicit. Deleting a journal removes its suggestions, while already accepted tasks remain.
 - Original Django HTML routes remain as legacy examples; the current interface starts at `/` and `/app/`. Known legacy-route limitations are recorded in the verification/design documentation.
-- Local development uses `config.settings`. Optional production configuration uses `config.settings_production` and `config.wsgi_production`. Follow the [PythonAnywhere deployment guide](docs/pythonanywhere.md) to create private host settings, collect static assets and verify HTTPS. No public deployment has been performed.
+- Local development uses `config.settings`. Production uses `config.settings_production` and `config.wsgi_production`. Follow either the [Render deployment guide](docs/render.md) or the [PythonAnywhere deployment guide](docs/pythonanywhere.md) for private host settings, static assets and HTTPS verification.
 
 ## Verification and submission
 

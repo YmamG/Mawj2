@@ -1,7 +1,9 @@
 """Production-only settings. Select explicitly; local development uses settings.py."""
 import os
+from pathlib import Path
 from urllib.parse import urlsplit
 
+import dj_database_url
 from django.core.exceptions import ImproperlyConfigured
 
 from .settings import *  # noqa: F403 - inherit the shared application configuration
@@ -27,9 +29,12 @@ if _journal_key and (len(_journal_key) < 32 or len(set(_journal_key)) < 5):
     )
 JOURNAL_ENCRYPTION_KEY = _journal_key or SECRET_KEY
 
+_hosts = os.environ.get("DJANGO_ALLOWED_HOSTS", "").strip()
+if not _hosts:
+    _hosts = os.environ.get("RENDER_EXTERNAL_HOSTNAME", "").strip()
 ALLOWED_HOSTS = [
     host.strip().lower()
-    for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
+    for host in _hosts.split(",")
     if host.strip()
 ]
 if not ALLOWED_HOSTS or any(
@@ -72,6 +77,26 @@ for origin in CSRF_TRUSTED_ORIGINS:
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"  # noqa: F405
+MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")  # noqa: F405
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+WHITENOISE_MAX_AGE = 31536000
+
+_database_url = os.environ.get("DATABASE_URL", "").strip()
+if _database_url:
+    DATABASES = {  # noqa: F405
+        "default": dj_database_url.parse(
+            _database_url,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+
+MEDIA_ROOT = Path(os.environ.get("MAWJ_MEDIA_ROOT", str(MEDIA_ROOT)))  # noqa: F405
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -82,6 +107,10 @@ CSRF_COOKIE_SAMESITE = "Lax"
 SECURE_SSL_REDIRECT = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
+
+# Render terminates HTTPS at its trusted proxy and forwards the original scheme.
+if os.environ.get("RENDER", "").lower() == "true":
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Enable a short HSTS period only after the actual deployed HTTPS site is verified.
 # Subdomain coverage/preloading are separate decisions; do not pin an untested site.

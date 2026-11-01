@@ -2,3 +2,7 @@ Django>=5.2
 requests>=2.32
 Pillow>=11.3
 python-dotenv>=1.1
+dj-database-url>=2.2
+gunicorn>=23.0
+psycopg[binary]>=3.2
+whitenoise>=6.8

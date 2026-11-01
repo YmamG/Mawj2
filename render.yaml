@@ -1,0 +1,33 @@
+databases:
+  - name: mawj2-db
+    databaseName: mawj2
+    user: mawj2
+
+services:
+  - type: web
+    name: mawj2
+    runtime: python
+    buildCommand: bash scripts/render_build.sh
+    startCommand: bash scripts/render_start.sh
+    healthCheckPath: /
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mawj2-db
+          property: connectionString
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: MAWJ_JOURNAL_KEY
+        generateValue: true
+      - key: MAWJ_MEDIA_ROOT
+        value: /var/data/media
+      - key: MAWJ_E2EE_JOURNAL_PREVIEW
+        value: "1"
+      - key: AI_PROVIDER
+        value: demo
+      - key: PYTHON_VERSION
+        value: 3.12.14
+    disk:
+      name: mawj2-media
+      mountPath: /var/data/media
+      sizeGB: 1

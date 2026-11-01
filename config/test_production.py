@@ -66,11 +66,38 @@ class ProductionSettingsTests(SimpleTestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(result.stdout), {"debug": True, "secure": False})
 
+    def test_render_uses_managed_host_database_media_and_proxy(self):
+        code = '''
+from config import settings_production as settings
+assert settings.ALLOWED_HOSTS == ['mawj2.onrender.com']
+assert settings.CSRF_TRUSTED_ORIGINS == ['https://mawj2.onrender.com']
+assert settings.DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql'
+assert str(settings.MEDIA_ROOT) == '/var/data/media'
+assert settings.SECURE_PROXY_SSL_HEADER == ('HTTP_X_FORWARDED_PROTO', 'https')
+assert settings.MIDDLEWARE[1] == 'whitenoise.middleware.WhiteNoiseMiddleware'
+assert settings.STORAGES['staticfiles']['BACKEND'] == 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+'''
+        result = self.run_isolated(
+            code,
+            DJANGO_ALLOWED_HOSTS="",
+            RENDER="true",
+            RENDER_EXTERNAL_HOSTNAME="mawj2.onrender.com",
+            DATABASE_URL="postgresql://mawj:secret@db.internal/mawj2",
+            MAWJ_MEDIA_ROOT="/var/data/media",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+
     def test_production_requests_https_host_checks_and_csrf(self):
         code = '''
 import json
-from config.wsgi_production import application
+import tempfile
+import django
 from django.conf import settings
+settings.STATIC_ROOT = tempfile.mkdtemp(prefix='mawj-static-test-')
+django.setup()
+from django.core.management import call_command
+call_command('collectstatic', interactive=False, verbosity=0)
+from config.wsgi_production import application
 assert settings.DEBUG is False
 assert settings.ADMIN_ENABLED is False
 assert settings.MAILERS['default']['BACKEND'] == 'django.core.mail.backends.smtp.EmailBackend'
