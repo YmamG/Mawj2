@@ -34,7 +34,7 @@
 ## التشغيل المحلي
 
 ```powershell
-git clone --branch django-templates --single-branch https://github.com/YmamG/Mawj.git mawj
+git clone --branch main --single-branch https://github.com/YmamG/Mawj2.git mawj
 cd mawj
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt

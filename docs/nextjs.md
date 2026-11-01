@@ -1,6 +1,6 @@
 # Historical Next.js setup
 
-This document describes the `main` branch. On `django-templates`, use README.md and [the Django edition guide](django-edition.md); do not run npm/Node commands from this historical guide.
+This historical document describes an earlier Next.js edition. The current project uses Django templates; use README.md and [the Django edition guide](django-edition.md), and do not run npm/Node commands from this historical guide.
 
 # Next.js interface and Django API
 
@@ -92,7 +92,7 @@ The launcher deliberately uses its local backend; custom `DJANGO_URL` values are
 
 ## Recent usability fixes
 
-Chart hover/focus labels stay inside the scrollable chart, including the first/last columns. Empty-state Add a task opens the inline form, scrolls it into view and focuses the title. Both new palettes persist to the account. Made by Ymam appears in both landing and workspace footers and links to https://github.com/ymamggg-jpg.
+Chart hover/focus labels stay inside the scrollable chart, including the first/last columns. Empty-state Add a task opens the inline form, scrolls it into view and focuses the title. Both new palettes persist to the account.
 
 New or changed task schedules must be today/future in Riyadh time; start times and deadlines cannot be newly set in the past. Existing unchanged overdue schedules may remain while editing other fields. Historical tasks remain visible in reports. Past AI-proposed schedules are removed before saving suggestions; accepting older pending suggestions also validates the schedule.
 

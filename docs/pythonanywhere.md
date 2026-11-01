@@ -4,7 +4,7 @@
 
 ## قبل البدء
 
-اعتمد فرع `django-templates` من مستودع `YmamG/Mawj`، مع الاحتفاظ بقاعدة بياناتك و`.env` والصور محليًا. لا ترفع هذه الملفات إلى GitHub. أنشئ حسابًا على [PythonAnywhere](https://www.pythonanywhere.com/)؛ اسم حساب الاستضافة يحدد الرابط الافتراضي، وليس اسم GitHub.
+اعتمد فرع `main` من مستودع `YmamG/Mawj2`، مع الاحتفاظ بقاعدة بياناتك و`.env` والصور محليًا. لا ترفع هذه الملفات إلى GitHub. أنشئ حسابًا على [PythonAnywhere](https://www.pythonanywhere.com/)؛ اسم حساب الاستضافة يحدد الرابط الافتراضي، وليس اسم GitHub.
 
 الخطة المجانية محدودة وتتطلب تجديد صلاحية الموقع دوريًا، وقد تمنع الاتصال بمزوّد AI خارج قائمة السماح. ابدأ ببيانات وهمية و`AI_PROVIDER=demo`؛ هذا وضع قواعد محلية وليس نموذج ذكاء اصطناعي مباشرًا.
 
@@ -13,7 +13,7 @@
 افتح Bash console في PythonAnywhere:
 
 ```bash
-git clone --branch django-templates --single-branch https://github.com/YmamG/Mawj.git mawj
+git clone --branch main --single-branch https://github.com/YmamG/Mawj2.git mawj
 cd ~/mawj
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
@@ -97,8 +97,8 @@ from config.wsgi_production import application
 
 ```bash
 cd ~/mawj
-git switch django-templates
-git pull --ff-only origin django-templates
+git switch main
+git pull --ff-only origin main
 .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python manage.py migrate --settings=config.settings_production
 .venv/bin/python manage.py collectstatic --noinput --settings=config.settings_production

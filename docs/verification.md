@@ -162,7 +162,7 @@ Limitations remain: no production deployment or live AI provider test; reminders
 - Production checks verify that admin login/model routes resolve to the missing-page handler and return 404. An authenticated staff/superuser API regression verifies owner-only task/journal lists, rejection of reads/deletes/suggestion acceptance for another user, and rejection of profile target switching.
 - **103 tests passed** in the full suite on Python 3.12 / Django 6.1.2; system checks and migration consistency passed. Earlier targeted API/production run: 19 tests passed. These are local checks; the operator must pull and reload the hosted application, then verify `/admin/` returns 404.
 - Updated Arabic/English privacy statements to disclose that direct server/database/backup access remains possible and that journal/task content is not end-to-end encrypted. Disabling a URL does not prevent a hosting operator from reading SQLite or changing code/credentials through the server. No private user data, passwords or live hosting credentials were accessed.
-- Corrected the hosting guide to use the user-selected `YmamG/Mawj:django-templates` repository and documented that a superuser is not required for deployment.
+- Corrected the hosting guide to use the selected deployment repository and documented that a superuser is not required for deployment.
 
 ## Read-only registered account directory (2026-10-21)
 

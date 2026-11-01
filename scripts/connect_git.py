@@ -7,8 +7,8 @@ import subprocess
 import sys
 import tempfile
 
-REPOSITORY = 'https://github.com/YmamG/Mawj.git'
-BRANCH = 'django-templates'
+REPOSITORY = 'https://github.com/YmamG/Mawj2.git'
+BRANCH = 'main'
 PRIVATE_NAMES = {'.env', '.env.local', 'db.sqlite3', 'media', '.venv', 'venv', 'node_modules'}
 
 
@@ -33,7 +33,7 @@ def connect(root, repository=REPOSITORY):
         remote = run_git('remote', 'get-url', 'origin', cwd=root, capture=True).stdout.decode().strip()
         if remote != repository:
             raise RuntimeError('This Git folder has a different origin. Review git remote -v before updating.')
-        print('Already connected. Update with: git pull --ff-only origin django-templates')
+        print('Already connected. Update with: git pull --ff-only origin main')
         return None
 
     backup = root.parent / f'{root.name}-backup-{datetime.now():%Y%m%d-%H%M%S-%f}'
@@ -61,7 +61,7 @@ def connect(root, repository=REPOSITORY):
         shutil.move(str(checkout / '.git'), str(root / '.git'))
     run_git('status', '--short', cwd=root)
     print(f'Connected to branch {BRANCH}. Your backup remains at: {backup}')
-    print('Future updates: git pull --ff-only origin django-templates')
+    print('Future updates: git pull --ff-only origin main')
     return backup
 
 

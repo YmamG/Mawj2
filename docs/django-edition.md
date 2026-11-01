@@ -12,7 +12,7 @@ The original Django routes/templates remain available as legacy educational exam
 
 ## Preserved behavior
 
-Five palettes; local Saudi/Noto/DM Sans/Fraunces fonts and SVG icons; English/Arabic; profile edits and private PNG/JPEG avatar upload/removal; task CRUD/filtering/pagination; past schedule validation; daily/weekly recurrence and reminders; journal CRUD, provider mode, analysis, accept/dismiss; week/month/year reports and charts/data table; calendar day details with undated tasks and full journal text; modal destructive confirmations; Ymam attribution/GitHub link.
+Five palettes; local Saudi/Noto/DM Sans/Fraunces fonts and SVG icons; English/Arabic; profile edits and private PNG/JPEG avatar upload/removal; task CRUD/filtering/pagination; past schedule validation; daily/weekly recurrence and reminders; journal CRUD, provider mode, analysis, accept/dismiss; week/month/year reports and charts/data table; calendar day details with undated tasks and full journal text; modal destructive confirmations.
 
 Page navigation now renders Django templates rather than React components. Dates in compact record summaries may use numeric formatting. Forms retain text drafts across a language change; passwords and file input bytes are not stored in draft storage. File selections need reselecting after a full-page navigation. Live AI still requires local provider configuration and was not validated with real credentials.
 
